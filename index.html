@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testovací Stránka</title>
+    <title>Interaktivní Testovací Stránka</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
+            flex-direction: column; /* Aby se obsah a hodiny nepletly */
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
             color: #333;
+            position: relative; /* Pro absolutní pozicování hodin */
         }
         .container {
             background-color: #ffffff;
@@ -22,19 +24,62 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
-        h1 {
+        button {
             font-size: 3em;
-            color: #007bff;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 10px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-        p {
-            font-size: 1.2em;
+        button:hover {
+            background-color: #0056b3;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 2em;
+            color: red;
+            font-weight: bold;
+        }
+        #clock {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5em;
+            color: #555;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Test</h1>
-        <p>Toto je vaše první testovací stránka z GitHubu!</p>
-    </div>
+    <div id="clock"></div> <div class="container">
+        <button id="testButton">Test</button> <div id="message"></div> </div>
+
+    <script>
+        // Funkce pro zobrazení zprávy
+        document.getElementById('testButton').onclick = function() {
+            document.getElementById('message').innerText = 'Výborně';
+        };
+
+        // Funkce pro aktualizaci hodin
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').innerText = `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Aktualizuj hodiny každou sekundu
+        setInterval(updateClock, 1000);
+
+        // Zavolej updateClock ihned po načtení stránky, aby se hodiny zobrazily hned
+        updateClock();
+    </script>
 </body>
 </html>
